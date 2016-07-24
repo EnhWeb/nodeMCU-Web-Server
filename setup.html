@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=380'>
+    <title>Connect your gadget to WiFi</title>
+
+    <style media='screen' type='text/css'>
+        * {margin: 0; padding: 0;}
+        html {
+            height: 100%;
+            background: black;
+             }
+        body {
+            font-family: arial, verdana;
+        }
+        div {
+            position: absolute;
+            margin: auto;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 320px;
+            height: 274px;
+        }
+        form {
+            width: 320px;
+            text-align: center;
+            position: relative;
+        }
+        form fieldset {
+            background: white;
+            border: 0 none;
+            border-radius: 5px;
+            box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+            padding: 20px 30px;
+            box-sizing: border-box;
+        }
+        form input {
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: montserrat;
+            color: #2C3E50;
+            font-size: 13px;
+        }
+        form .action-button {
+            width: 100px;
+            background: #27AE60;
+            font-weight: bold;
+            color: white;
+            border: 0 none;
+            border-radius: 3px;
+            cursor: pointer;
+            padding: 10px 5px;
+            margin: 10px 5px;
+        }
+        form .action-button:hover, #msform .action-button:focus {
+            box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+        }
+        .fs-title {
+            font-size: 15px;
+            text-transform: uppercase;
+            color: #2C3E50;
+            margin-bottom: 10px;
+        }
+        .fs-subtitle {
+            font-weight: normal;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+    </style>
+
+</head>
+<body>
+<div>
+<form>
+    <fieldset>
+        <h2 class='fs-title'>WiFi Login</h2>
+        <h3 class='fs-subtitle'>Connect your gadget to WiFi</h3>
+        <input type='text' autocorrect='off' autocapitalize='none' id='wifi_ssid' placeholder='WiFi SSID' text-align:'center' />
+        <input type='password' id='wifi_password' onkeypress='checkEnter(event)' placeholder='Password' />
+        <input type='button' name='save' onclick='submitData()' value='Save' />
+    </fieldset>
+
+<script type="text/javascript">
+var SSID = document.getElementById('wifi_ssid');
+var PASS = document.getElementById('wifi_password');
+
+function checkEnter(e) {
+    if (e.keyCode == 13)
+    {
+        submitData();
+    }
+}
+
+function submitData() {
+    if (isEmpty(SSID.value) == true || isEmpty(PASS.value) == true) {
+        alert("Please provide a proper credential.")
+    }
+    else {
+        var ajaxReq = new XMLHttpRequest();
+        ajaxReq.onreadystatechange = function() {
+        if (ajaxReq.readyState == 4 && ajaxReq.status == 200)
+        {
+            alert("Credentials has been saved.");
+        }
+    }
+        var dataString = "?wifi_ssid=" + SSID.value;
+        dataString += "&wifi_password=" + PASS.value;
+        ajaxReq.open("GET",dataString,true);
+        ajaxReq.send(null);
+    }
+}
+
+
+function isEmpty(s) {
+    if (s == null || s == "")
+        return true;
+    else
+        return false;
+}
+</script>
+</form>
+</div>
+</body>
+</html>
