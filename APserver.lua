@@ -1,4 +1,12 @@
-srv=net.createServer(net.TCP) 
+--[[
+This is a modified version of robertfoss' esp8266_nodemcu_wifi_setup.
+The link is here. https://github.com/robertfoss/esp8266_nodemcu_wifi_setup
+
+Thanks for the really nice page and codes.
+]]--
+
+
+srv=net.createServer(net.TCP)
 srv:listen(80, function(conn) 
 
    local rnrn = 0

@@ -1,5 +1,5 @@
 if (file.open("credentials.txt", "r") == true) then 
-SSID = (file.readline())
+SSID = (file.readline())                    -- Checks if file is empty
 if (SSID == nil) then
 file.close()
 else
