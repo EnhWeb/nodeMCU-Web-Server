@@ -1,15 +1,18 @@
-if (file.open("credentials.txt", "r") == true) then 
-SSID = (file.readline())                    -- Checks if file is empty
-if (SSID == nil) then
+if (file.open("credentials.txt", "r") == true) then
+SSID = file.readline()
+PASS = file.readline()
 file.close()
-else
-PASS = crypto.decrypt("AES-ECB","1[($72;#WsMP4Hs/",(file.readline()))
-file.close()
-end
+
+SSID = string.gsub(SSID, "\n", "")
+PASS = string.gsub(PASS, "\n", "")
+
+PASS = crypto.decrypt("AES-ECB", "1[($72;#WsMP4Hs/", PASS)
 end
 
-local function isEmpty(s) -- Checks if string is nil or empty
-    if (s == nil or s == "") then
+
+
+local function isEmpty(t)
+    if (t == nil or t == "") then
     return true
     end   
 end
@@ -17,9 +20,6 @@ end
 if (isEmpty(SSID) == true or isEmpty(PASS) == true) then
     dofile("APmode.lua")
 else   
-    
-    SSID = string.gsub(SSID, "\n", "")
-    PASS = string.gsub(PASS, "\n", "")
     wifi.setmode(wifi.STATION)
     wifi.sta.config(SSID,PASS)
 
